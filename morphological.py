@@ -38,7 +38,17 @@ def main():
             result = cv2.morphologyEx(imgDigit, cv2.MORPH_CLOSE, kernel, iterations=iterations)
 
         st.subheader(f"{operation} Result")
-        st.image(cv2.cvtColor(result, cv2.COLOR_BGR2RGB), use_column_width=True)
+        
+        # Create a layout with two columns for image comparison
+        col1, col2 = st.beta_columns(2)
+
+        with col1:
+            st.subheader("Original Image")
+            st.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True)
+
+        with col2:
+            st.subheader(f"{operation} Filtered Image")
+            st.image(cv2.cvtColor(result, cv2.COLOR_BGR2RGB), use_column_width=True)
 
 if __name__ == "__main__":
     main()
