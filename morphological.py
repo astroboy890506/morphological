@@ -39,11 +39,11 @@ def main():
 
         st.subheader(f"{operation} Result")
 
-        original_size = st.slider("Original Image Size", min_value=100, max_value=800, value=300)
-        result_size = st.slider("Result Image Size", min_value=100, max_value=800, value=300)
+        original_size = st.slider("Original Image Size", min_value=100, max_value=350, value=300)
+        result_size = st.slider("Result Image Size", min_value=100, max_value=350, value=300)
 
         # Create a layout with two columns for image comparison
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
 
         with col1:
             st.subheader("Original Image")
