@@ -13,20 +13,20 @@ def main():
 
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
+    st.sidebar.subheader("Morphological Operations")
+    operation = st.sidebar.selectbox("Select an operation", ["Erosion", "Dilation", "Opening", "Closing"])
+
+    window_size = st.sidebar.slider("Window Size", min_value=3, max_value=15, value=5, step=2)
+    iterations = st.sidebar.slider("Iterations", min_value=1, max_value=10, value=1)
+
+    kernel = np.ones((window_size, window_size), np.uint8)
+
     if uploaded_file is not None:
         img_array = np.fromstring(uploaded_file.read(), np.uint8)
         imgDigit = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-        st.subheader("Original Digit Image")
-        st.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True)
-
-        st.sidebar.subheader("Morphological Operations")
-        operation = st.sidebar.selectbox("Select an operation", ["Erosion", "Dilation", "Opening", "Closing"])
-
-        window_size = st.sidebar.slider("Window Size", min_value=3, max_value=15, value=5, step=2)
-        iterations = st.sidebar.slider("Iterations", min_value=1, max_value=10, value=1)
-
-        kernel = np.ones((window_size, window_size), np.uint8)
+        st.sidebar.subheader("Original Digit Image")
+        st.sidebar.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True)
 
         if operation == "Erosion":
             result = cv2.erode(imgDigit, kernel, iterations=iterations)
@@ -40,10 +40,10 @@ def main():
         st.subheader(f"{operation} Result")
         
         # Create a layout with two columns for image comparison
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.beta_columns([1, 3])
 
         with col1:
-            st.subheader("Original Image")
+            st.subheader("Uploaded Image")
             st.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True)
 
         with col2:
