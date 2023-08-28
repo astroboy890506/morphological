@@ -38,17 +38,20 @@ def main():
             result = cv2.morphologyEx(imgDigit, cv2.MORPH_CLOSE, kernel, iterations=iterations)
 
         st.subheader(f"{operation} Result")
-        
+
+        original_size = st.slider("Original Image Size", min_value=100, max_value=800, value=300)
+        result_size = st.slider("Result Image Size", min_value=100, max_value=800, value=300)
+
         # Create a layout with two columns for image comparison
-        col1, col2 = st.beta_columns([1, 3])
+        col1, col2 = st.beta_columns(2)
 
         with col1:
-            st.subheader("Uploaded Image")
-            st.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True)
+            st.subheader("Original Image")
+            st.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True, width=original_size)
 
         with col2:
             st.subheader(f"{operation} Filtered Image")
-            st.image(cv2.cvtColor(result, cv2.COLOR_BGR2RGB), use_column_width=True)
+            st.image(cv2.cvtColor(result, cv2.COLOR_BGR2RGB), use_column_width=True, width=result_size)
 
 if __name__ == "__main__":
     main()
