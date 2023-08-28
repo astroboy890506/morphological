@@ -39,19 +39,16 @@ def main():
 
         st.subheader(f"{operation} Result")
 
-        # original_size = st.slider("Original Image Size", min_value=100, max_value=350, value=300)
-        # result_size = st.slider("Result Image Size", min_value=100, max_value=350, value=300)
+        original_size = st.slider("Original Image Size", min_value=100, max_value=350, value=300)
+        result_size = st.slider("Result Image Size", min_value=100, max_value=350, value=300)
 
-        # Create a layout with two columns for image comparison
-        col1, col2 = st.columns(2)
+        # Manually resize images based on slider values
+        original_resized = cv2.resize(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), (original_size, original_size))
+        result_resized = cv2.resize(cv2.cvtColor(result, cv2.COLOR_BGR2RGB), (result_size, result_size))
 
-        with col1:
-            st.subheader("Original Image")
-            st.image(cv2.cvtColor(imgDigit, cv2.COLOR_BGR2RGB), use_column_width=True, width=original_size)
-
-        with col2:
-            st.subheader(f"{operation} Filtered Image")
-            st.image(cv2.cvtColor(result, cv2.COLOR_BGR2RGB), use_column_width=True, width=result_size)
+        # Display resized images
+        st.image(original_resized, caption="Original Image", use_column_width=True)
+        st.image(result_resized, caption=f"{operation} Filtered Image", use_column_width=True)
 
 if __name__ == "__main__":
     main()
