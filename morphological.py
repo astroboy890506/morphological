@@ -22,7 +22,7 @@ def main():
     kernel = np.ones((window_size, window_size), np.uint8)
 
     if uploaded_file is not None:
-        img_array = np.fromstring(uploaded_file.read(), np.uint8)
+        img_array = np.frombuffer(uploaded_file.read(), np.uint8)
         imgDigit = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
         st.sidebar.subheader("Original Digit Image")
